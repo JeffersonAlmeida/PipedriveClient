@@ -1,0 +1,172 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "br.com.doublef.pipedriveclient"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "br.com.doublef.pipedriveclient.PipedriveClientRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            testCoverageEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        test {
+            java.srcDirs = ['src/test/java', 'src/commonTest/java']
+        }
+        androidTest {
+            java.srcDirs = ['src/androidTest/java', 'src/commonTest/java']
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "12g"
+    }
+
+    lintOptions {
+        disable 'ContentDescription'
+    }
+
+}
+
+
+dependencies {
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+    })
+
+    // Testing dependencies
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+
+    // Junit for Tests
+
+    androidTestCompile 'junit:junit:4.12'
+
+    // Mockito
+    androidTestCompile 'org.mockito:mockito-core:1.9.5'
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+
+    // constraint-layout
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // Dagger - Dependency Injection
+
+    // apt command comes from the android-apt plugin
+
+    compile "com.google.dagger:dagger:2.8"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.8"
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    // Retrofit  - Rest API library
+
+    // Http Logging Interceptor
+
+    // RxJava
+
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.3'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+
+    // RecyclerView
+
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    // Cardview
+
+    compile 'com.android.support:cardview-v7:25.3.1'
+
+    // Butterknife
+
+    compile 'com.jakewharton:butterknife:8.5.1'
+    apt 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    // Dependencies to make Dagger generate code for androidTests
+    testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    apt 'com.google.dagger:dagger-compiler:2.8'
+    androidTestApt 'com.google.dagger:dagger-compiler:2.8'
+
+    // Glide
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
+
+    // Multidex
+
+    compile 'com.android.support:multidex:1.0.1'
+
+    // Support Design
+
+    compile 'com.android.support:design:25.3.1'
+
+    compile 'com.android.support:support-v4:25.3.1'
+
+    // lombok
+    provided "org.projectlombok:lombok:1.12.6"
+    apt "org.projectlombok:lombok:1.12.6"
+
+    // hawk
+
+    compile 'com.orhanobut:hawk:2.0.1'
+
+    // textdrawable
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    // animations
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.easing:library:1.0.1@aar'
+    compile 'com.daimajia.androidanimations:library:1.1.3@aar'
+
+}

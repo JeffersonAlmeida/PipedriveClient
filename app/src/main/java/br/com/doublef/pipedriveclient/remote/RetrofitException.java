@@ -1,0 +1,81 @@
+package br.com.doublef.pipedriveclient.remote;
+
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+public class RetrofitException extends RuntimeException {
+
+    public static RetrofitException httpError(String url, Response response, Retrofit retrofit) {
+        String message = response.code() + " " + response.message();
+        return new RetrofitException(message, url, response, Kind.HTTP, null, retrofit);
+    }
+
+    public static RetrofitException networkError(IOException exception) {
+        return new RetrofitException(exception.getMessage(), null, null, Kind.NETWORK, exception, null);
+    }
+
+    public static RetrofitException unexpectedError(Throwable exception) {
+        return new RetrofitException(exception.getMessage(), null, null, Kind.UNEXPECTED, exception, null);
+    }
+
+    public enum Kind {
+        NETWORK, HTTP, UNEXPECTED
+    }
+
+    private final String url;
+    private final Response response;
+    private final Kind kind;
+    private final Retrofit retrofit;
+
+    RetrofitException(String message, String url, Response response, Kind kind, Throwable exception, Retrofit retrofit) {
+        super(message, exception);
+        this.url = url;
+        this.response = response;
+        this.kind = kind;
+        this.retrofit = retrofit;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public Kind getKind() {
+        return kind;
+    }
+
+    public Retrofit getRetrofit() {
+        return retrofit;
+    }
+
+    public <T> T getErrorBodyAs(Class<T> type) throws IOException {
+        if (response == null || response.errorBody() == null) {
+            return null;
+        }
+        Converter<ResponseBody, T> converter = retrofit.responseBodyConverter(type, new Annotation[0]);
+        return converter.convert(response.errorBody());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if ( url != null && !url.isEmpty() ){
+            stringBuilder.append("url='").append(url).append('\n');
+        }
+        if ( response!= null && !response.message().isEmpty()){
+            stringBuilder.append("Message=").append(response.message()).append('\n');
+        }
+        if ( kind != null && !kind.toString().isEmpty() ){
+            stringBuilder.append("kind=").append(kind.toString()).append('\n');
+        }
+        return stringBuilder.toString();
+    }
+}
