@@ -3,6 +3,7 @@ package br.com.doublef.pipedriveclient.application;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.orhanobut.hawk.Hawk;
 
 import br.com.doublef.pipedriveclient.dependencyinjection.components.AppComponents;
@@ -15,6 +16,7 @@ import br.com.doublef.pipedriveclient.dependencyinjection.components.DaggerShare
 import br.com.doublef.pipedriveclient.dependencyinjection.components.DatabaseComponent;
 import br.com.doublef.pipedriveclient.dependencyinjection.components.RestApiComponent;
 import br.com.doublef.pipedriveclient.dependencyinjection.components.SharedPrefsComponent;
+import io.fabric.sdk.android.Fabric;
 
 public class App extends Application {
 
@@ -25,6 +27,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         instance = this;
         initDependencyInjectionComponents();
         initSharedPreferences();
