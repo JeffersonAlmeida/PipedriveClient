@@ -3,6 +3,7 @@ package br.com.doublef.pipedriveclient.dependencyinjection.modules;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.doublef.pipedriveclient.BuildConfig;
 import br.com.doublef.pipedriveclient.remote.RequestInterceptor;
 import br.com.doublef.pipedriveclient.remote.RxErrorHandlingCallAdapterFactory;
 import br.com.doublef.pipedriveclient.remote.Service;
@@ -18,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RestApiModule {
 
-    private static final String BASE_URL = "https://doublef.pipedrive.com/v1/";
+    private static final String BASE_URL = BuildConfig.ENDPOINT;
 
     @Provides
     Interceptor interceptor(UserPrefs userPrefs){

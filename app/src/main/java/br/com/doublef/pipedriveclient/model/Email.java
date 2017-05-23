@@ -5,10 +5,12 @@ import android.os.Parcelable;
 
 import io.realm.RealmObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
 @ToString
+@EqualsAndHashCode(callSuper = false)
 public class Email extends RealmObject implements Parcelable{
 
     private String label;

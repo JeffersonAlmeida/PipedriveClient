@@ -27,7 +27,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+        Crashlytics crashlytics = new Crashlytics();
+        Fabric.with(this, crashlytics);
         instance = this;
         initDependencyInjectionComponents();
         initSharedPreferences();

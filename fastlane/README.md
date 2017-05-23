@@ -34,6 +34,16 @@ xcode-select --install
 fastlane beta
 ```
 
+### buildHmg
+```
+fastlane buildHmg
+```
+
+### buildRelease
+```
+fastlane buildRelease
+```
+
 
 ----
 

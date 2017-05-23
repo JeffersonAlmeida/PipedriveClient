@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">POC</string>
+    <string name="app_name">Contacts</string>
     <string name="logout">logout</string>
     <string name="pipedrive">Pipedrive</string>
 

@@ -41,6 +41,7 @@ android {
     }
 
     signingConfigs {
+
         releaseConfig {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
@@ -50,15 +51,25 @@ android {
     }
 
     buildTypes {
+
+        def STRING = "String"
+        def ENDPOINT = "ENDPOINT"
+        def ENDPOINT_BASE_PRODUCTION = "\"https://doublef.pipedrive.com/v1/\""
+        def ENDPOINT_BASE_HOMOLOG = "\"https://doublef.pipedrive.com/v1/\""
+
         release {
             minifyEnabled false
             testCoverageEnabled true
             signingConfig signingConfigs.releaseConfig
+            buildConfigField STRING, ENDPOINT, ENDPOINT_BASE_PRODUCTION
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        debug {
+        homologation {
             testCoverageEnabled true
+            applicationIdSuffix ".hmg"
+            signingConfig signingConfigs.releaseConfig
+            buildConfigField STRING, ENDPOINT, ENDPOINT_BASE_HOMOLOG
         }
     }
 

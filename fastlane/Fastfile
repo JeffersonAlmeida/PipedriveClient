@@ -14,7 +14,7 @@ def changelog_from_commits
     # http://git-scm.com/docs/pretty-formats
     return changelog_from_git_commits(
         commits_count: 10,
-        pretty: '• The author of %h was %an, %ar%nThe title was >>%s<<%n',
+        pretty: '• The author of %h was %an, %ar%nThe title was >>%s<<%n%n',
         merge_commit_filtering: 'exclude_merges'
      )
 end
@@ -27,7 +27,8 @@ lane :beta do
   # build the release variant
   gradle(task: "assembleRelease")
 
-  change_log = changelog_from_commits
+  change_log_header = "Build generated at " + Time.new.strftime("%H:%M:%S - %d/%m/%Y") + "\n\n"
+  change_log = change_log_header + changelog_from_commits
 
   # upload to Beta by Crashlytics
   crashlytics(
@@ -37,4 +38,14 @@ lane :beta do
     emails: "jefferson.almeida.comp@gmail.com",
     notifications: true
   )
+end
+
+lane :buildHmg do
+  gradle(task: "clean")
+  gradle(task: "assembleHomologation")
+end
+
+lane :buildRelease do
+  gradle(task: "clean")
+  gradle(task: "assembleRelease")
 end
