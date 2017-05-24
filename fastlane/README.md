@@ -29,24 +29,34 @@ xcode-select --install
 </table>
 
 # Available Actions
-### beta
+### hmg2Beta
 ```
-fastlane beta
-```
-
-### betaHmg
-```
-fastlane betaHmg
+fastlane hmg2Beta
 ```
 
-### buildHmg
+### release2Beta
 ```
-fastlane buildHmg
+fastlane release2Beta
 ```
 
-### buildRelease
+### generate_homolog_apk
 ```
-fastlane buildRelease
+fastlane generate_homolog_apk
+```
+
+### generate_release_apk
+```
+fastlane generate_release_apk
+```
+
+### clean
+```
+fastlane clean
+```
+
+### send_apk_to_beta
+```
+fastlane send_apk_to_beta
 ```
 
 

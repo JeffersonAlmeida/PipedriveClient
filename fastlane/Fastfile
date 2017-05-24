@@ -10,62 +10,60 @@ generated_fastfile_id "f5ec8833-fcf4-4e0c-ba4c-b1514bec6d88"
 
 default_platform :android
 
+# Generate a text with the last commits
+# Check it out to change log pattern
+# http://git-scm.com/docs/pretty-formats
 def changelog_from_commits
-    # http://git-scm.com/docs/pretty-formats
     return changelog_from_git_commits(
-        commits_count: 10,
+        commits_count: ENV["COMMIT_COUNT_RELEAE_NOTES"],
         pretty: '• The author of %h was %an, %ar%nThe title was >>%s<<%n%n',
         merge_commit_filtering: 'exclude_merges'
      )
 end
 
-# Fastfile actions accept additional configuration, but
-# don't worry, fastlane will prompt you for required
-# info which you can add here later
-lane :beta do
-
-  # build the release variant
-  gradle(task: "assembleRelease")
-
+# Generate release notes using a time header and last commits
+def beta_release_notes
   change_log_header = "Build generated at " + Time.new.strftime("%H:%M:%S - %d/%m/%Y") + "\n\n"
-  change_log = change_log_header + changelog_from_commits
-
-  # upload to Beta by Crashlytics
-    crashlytics(
-    api_token: "58e62ee3069f7917e79219f38e49282a7175db1c",
-    build_secret: "c6cc2dfc4e210992561d1150cd369fd891aa936cdc0f1c83e746c46d041c299b",
-    notes: change_log,
-    emails: "jefferson.almeida.comp@gmail.com",
-    notifications: true
-  )
+  return change_log_header + changelog_from_commits
 end
 
-lane :betaHmg do
-
-  # build the homologation variant
-  gradle(task: "clean")
-  gradle(task: "assembleHomologation")
-
-  change_log_header = "Build generated at " + Time.new.strftime("%H:%M:%S - %d/%m/%Y") + "\n\n"
-  change_log = change_log_header + changelog_from_commits
-
-  # upload to Beta by Crashlytics
-    crashlytics(
-    apk_path: "app/build/outputs/apk/app-homologation.apk",
-    api_token: "58e62ee3069f7917e79219f38e49282a7175db1c",
-    build_secret: "c6cc2dfc4e210992561d1150cd369fd891aa936cdc0f1c83e746c46d041c299b",
-    notes: change_log,
-    emails: "jefferson.almeida.comp@gmail.com",
-    notifications: true
-  )
+# Send Homologation apk to Beta by Crashlytics
+lane :hmg2Beta do
+  generate_homolog_apk
+  send_apk_to_beta(apk_path: ENV["HMG_APK_PATH"])
 end
 
-lane :buildHmg do
-  gradle(task: "clean")
+# Send Release apk to Beta by Crashlytics
+lane :release2Beta do
+  generate_release_apk
+  send_apk_to_beta(apk_path: ENV["RELEASE_APK_PATH"])
+end
+
+# Clean and Build Homologation APK
+lane :generate_homolog_apk do
+  clean
   gradle(task: "assembleHomologation")
 end
 
-lane :buildRelease do
-  gradle(task: "clean")
+# Clean and Build Release APK
+lane :generate_release_apk do
+  clean
   gradle(task: "assembleRelease")
+end
+
+# Run clean task
+lane :clean do
+  gradle(task: "clean")
+end
+
+# Upload apk to Beta by Crashlytics
+lane :send_apk_to_beta do |options|
+  crashlytics(
+      apk_path: options[:apk_path],
+      api_token: ENV["CRASHLYTICS_API_TOKEN"],
+      build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],
+      notes: beta_release_notes,
+      emails: "jefferson.almeida.comp@gmail.com",
+      notifications: true
+  )
 end
