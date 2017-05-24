@@ -31,7 +31,27 @@ lane :beta do
   change_log = change_log_header + changelog_from_commits
 
   # upload to Beta by Crashlytics
-  crashlytics(
+    crashlytics(
+    api_token: "58e62ee3069f7917e79219f38e49282a7175db1c",
+    build_secret: "c6cc2dfc4e210992561d1150cd369fd891aa936cdc0f1c83e746c46d041c299b",
+    notes: change_log,
+    emails: "jefferson.almeida.comp@gmail.com",
+    notifications: true
+  )
+end
+
+lane :betaHmg do
+
+  # build the homologation variant
+  gradle(task: "clean")
+  gradle(task: "assembleHomologation")
+
+  change_log_header = "Build generated at " + Time.new.strftime("%H:%M:%S - %d/%m/%Y") + "\n\n"
+  change_log = change_log_header + changelog_from_commits
+
+  # upload to Beta by Crashlytics
+    crashlytics(
+    apk_path: "app/build/outputs/apk/app-homologation.apk",
     api_token: "58e62ee3069f7917e79219f38e49282a7175db1c",
     build_secret: "c6cc2dfc4e210992561d1150cd369fd891aa936cdc0f1c83e746c46d041c299b",
     notes: change_log,
