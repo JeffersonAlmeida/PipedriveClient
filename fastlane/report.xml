@@ -5,47 +5,92 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.002127">
+      <testcase classname="fastlane.lanes" name="00: Verifying required fastlane version" time="0.002051">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.001416">
+      <testcase classname="fastlane.lanes" name="01: default_platform" time="0.00147">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to generate_release_apk lane" time="0.002088">
+      <testcase classname="fastlane.lanes" name="02: Switch to hmg_beta lane" time="0.001838">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: Switch to clean lane" time="0.001397">
+      <testcase classname="fastlane.lanes" name="03: Switch to generate_homolog_apk lane" time="0.001723">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: gradle" time="1.437529">
+      <testcase classname="fastlane.lanes" name="04: Switch to clean lane" time="0.001911">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: gradle" time="8.017374">
+      <testcase classname="fastlane.lanes" name="05: gradle" time="1.459092">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: Switch to send_apk_to_beta lane" time="0.00184">
+      <testcase classname="fastlane.lanes" name="06: gradle" time="8.368295">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: changelog_from_git_commits" time="0.012026">
+      <testcase classname="fastlane.lanes" name="07: Switch to send_apk_to_beta lane" time="0.001677">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: crashlytics" time="6.561644">
+      <testcase classname="fastlane.lanes" name="08: changelog_from_git_commits" time="0.031297">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: crashlytics" time="7.058444">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: Switch to release_beta lane" time="0.001954">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="11: Switch to generate_production_apk lane" time="0.001386">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="12: Switch to clean lane" time="0.001475">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="13: gradle" time="1.456554">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="14: gradle" time="8.198838">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="15: Switch to send_apk_to_beta lane" time="0.002098">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="16: changelog_from_git_commits" time="0.032563">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="17: crashlytics" time="6.681144">
         
       </testcase>
     

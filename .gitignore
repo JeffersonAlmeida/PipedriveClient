@@ -10,7 +10,7 @@
 
 ## Fastlane GitIgnore
 
-fastlane/report.xml
+/fastlane/report.xml
 
 *.gem
 *.rbc

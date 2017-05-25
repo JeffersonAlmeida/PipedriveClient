@@ -29,14 +29,49 @@ xcode-select --install
 </table>
 
 # Available Actions
-### hmg2Beta
+### master_beta
 ```
-fastlane hmg2Beta
+fastlane master_beta
 ```
 
-### release2Beta
+### rc_beta
 ```
-fastlane release2Beta
+fastlane rc_beta
+```
+
+### production_rc_beta
+```
+fastlane production_rc_beta
+```
+
+### homolog_rc_beta
+```
+fastlane homolog_rc_beta
+```
+
+### dev_beta
+```
+fastlane dev_beta
+```
+
+### homolog_dev_beta
+```
+fastlane homolog_dev_beta
+```
+
+### production_dev_beta
+```
+fastlane production_dev_beta
+```
+
+### hmg_beta
+```
+fastlane hmg_beta
+```
+
+### release_beta
+```
+fastlane release_beta
 ```
 
 ### generate_homolog_apk
@@ -44,9 +79,29 @@ fastlane release2Beta
 fastlane generate_homolog_apk
 ```
 
-### generate_release_apk
+### generate_production_apk
 ```
-fastlane generate_release_apk
+fastlane generate_production_apk
+```
+
+### generate_production_rc_apk
+```
+fastlane generate_production_rc_apk
+```
+
+### generate_production_develop_apk
+```
+fastlane generate_production_develop_apk
+```
+
+### generate_homologation_rc_apk
+```
+fastlane generate_homologation_rc_apk
+```
+
+### generate_homologation_develop_apk
+```
+fastlane generate_homologation_develop_apk
 ```
 
 ### clean
@@ -57,6 +112,16 @@ fastlane clean
 ### send_apk_to_beta
 ```
 fastlane send_apk_to_beta
+```
+
+### lint_for_production
+```
+fastlane lint_for_production
+```
+
+### lint_for_homolog
+```
+fastlane lint_for_homolog
 ```
 
 

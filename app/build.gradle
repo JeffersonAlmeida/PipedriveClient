@@ -27,6 +27,20 @@ def keystoreProperties = new Properties()
 // Load your keystore.properties file into the keystoreProperties object.
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def getVersionCode = { ->
+    def code = project.hasProperty('appVersionCode') ? appVersionCode.toInteger() : -1
+    println "VersionCode is set to $code"
+    return code
+}
+
+def getVersionName = { ->
+    def appVersionNameSuffix = project.hasProperty('appVersionNameSuffix') ? appVersionNameSuffix.toString() : ""
+    def appVersionName = project.hasProperty('appVersionName') ? appVersionName.toString() : ""
+    def fullAppVersionName = appVersionName + appVersionNameSuffix
+    println "VersionName is set to $fullAppVersionName"
+    return fullAppVersionName
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -34,8 +48,8 @@ android {
         applicationId "br.com.doublef.pipedriveclient"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode getVersionCode()
+        versionName getVersionName()
         testInstrumentationRunner "br.com.doublef.pipedriveclient.PipedriveClientRunner"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -57,7 +71,7 @@ android {
         def ENDPOINT_BASE_PRODUCTION = "\"https://doublef.pipedrive.com/v1/\""
         def ENDPOINT_BASE_HOMOLOG = "\"https://doublef.pipedrive.com/v1/\""
 
-        release {
+        production {
             minifyEnabled false
             testCoverageEnabled true
             signingConfig signingConfigs.releaseConfig

@@ -27,15 +27,56 @@ def beta_release_notes
   return change_log_header + changelog_from_commits
 end
 
+lane :master_beta do
+  hmg_beta
+  release_beta
+end
+
+lane :rc_beta do
+  homolog_rc_beta
+  production_rc_beta
+end
+
+lane :production_rc_beta do
+  # lint_for_production
+  generate_production_rc_apk
+  send_apk_to_beta(apk_path: ENV["RELEASE_APK_PATH"])
+end
+
+lane :homolog_rc_beta do
+  # lint_for_homolog
+  generate_homologation_rc_apk
+  send_apk_to_beta(apk_path: ENV["HMG_APK_PATH"])
+end
+
+lane :dev_beta do
+  homolog_dev_beta
+  production_dev_beta
+end
+
+lane :homolog_dev_beta do
+  # lint_for_homolog
+  generate_homologation_develop_apk
+  send_apk_to_beta(apk_path: ENV["HMG_APK_PATH"])
+end
+
+lane :production_dev_beta do
+  # lint_for_production
+  generate_production_develop_apk
+  send_apk_to_beta(apk_path: ENV["RELEASE_APK_PATH"])
+end
+
 # Send Homologation apk to Beta by Crashlytics
-lane :hmg2Beta do
+lane :hmg_beta do
+  #lint_for_homolog
   generate_homolog_apk
   send_apk_to_beta(apk_path: ENV["HMG_APK_PATH"])
 end
 
 # Send Release apk to Beta by Crashlytics
-lane :release2Beta do
-  generate_release_apk
+lane :release_beta do
+  #lint_for_production
+  generate_production_apk
   send_apk_to_beta(apk_path: ENV["RELEASE_APK_PATH"])
 end
 
@@ -46,9 +87,29 @@ lane :generate_homolog_apk do
 end
 
 # Clean and Build Release APK
-lane :generate_release_apk do
+lane :generate_production_apk do
   clean
-  gradle(task: "assembleRelease")
+  gradle(task: "assembleProduction")
+end
+
+lane :generate_production_rc_apk do
+  clean
+  gradle(task: "assembleProduction -PappVersionNameSuffix=\"-rc\"")
+end
+
+lane :generate_production_develop_apk do
+  clean
+  gradle(task: "assembleProduction -PappVersionNameSuffix=\"-dev\"")
+end
+
+lane :generate_homologation_rc_apk do
+  clean
+  gradle(task: "assembleHomologation -PappVersionNameSuffix=\"-rc\"")
+end
+
+lane :generate_homologation_develop_apk do
+  clean
+  gradle(task: "assembleHomologation -PappVersionNameSuffix=\"-dev\"")
 end
 
 # Run clean task
@@ -66,4 +127,12 @@ lane :send_apk_to_beta do |options|
       emails: "jefferson.almeida.comp@gmail.com",
       notifications: true
   )
+end
+
+lane :lint_for_production do
+  gradle(task: "lintRelease")
+end
+
+lane :lint_for_homolog do
+  gradle(task: "lintHomologation")
 end
