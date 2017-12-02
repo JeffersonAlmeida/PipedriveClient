@@ -68,19 +68,20 @@ android {
 
         def STRING = "String"
         def ENDPOINT = "ENDPOINT"
-        def ENDPOINT_BASE_PRODUCTION = "\"https://doublef.pipedrive.com/v1/\""
-        def ENDPOINT_BASE_HOMOLOG = "\"https://doublef.pipedrive.com/v1/\""
+        def ENDPOINT_BASE_PRODUCTION = "\"http://jsonplaceholder.typicode.com/\""
+        def ENDPOINT_BASE_HOMOLOG = "\"http://jsonplaceholder.typicode.com/\""
 
         production {
             minifyEnabled false
-            testCoverageEnabled true
+            testCoverageEnabled false
             signingConfig signingConfigs.releaseConfig
             buildConfigField STRING, ENDPOINT, ENDPOINT_BASE_PRODUCTION
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         homologation {
-            testCoverageEnabled true
+            debuggable true
+            testCoverageEnabled false
             applicationIdSuffix ".hmg"
             signingConfig signingConfigs.releaseConfig
             buildConfigField STRING, ENDPOINT, ENDPOINT_BASE_HOMOLOG

@@ -3,10 +3,13 @@ package br.com.doublef.pipedriveclient.datamanager;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.doublef.pipedriveclient.database.DatabaseFacade;
 import br.com.doublef.pipedriveclient.model.PersonData;
+import br.com.doublef.pipedriveclient.model.Post;
 import br.com.doublef.pipedriveclient.model.ResponseUser;
 import br.com.doublef.pipedriveclient.model.ResponseUserData;
 import br.com.doublef.pipedriveclient.model.User;
@@ -37,8 +40,14 @@ public class DataManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .map(this::saveDataOnDatabase)
-                .observeOn(AndroidSchedulers.mainThread())
-                .startWith(fetchDataFromDatabase());
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<List<Post>> fetchUserPostsData(){
+        return service
+                .fetchPostsData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<PersonData> fetchLocalData(){

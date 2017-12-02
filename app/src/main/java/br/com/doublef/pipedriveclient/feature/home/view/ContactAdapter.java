@@ -9,30 +9,31 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import br.com.doublef.pipedriveclient.R;
-import br.com.doublef.pipedriveclient.feature.details.DetailsActivity;
-import br.com.doublef.pipedriveclient.model.Contact;
-import br.com.doublef.pipedriveclient.util.UiUtil;
+import br.com.doublef.pipedriveclient.model.Post;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
 
     private Context context;
 
-    private List<Contact> contactList;
+    private List<Post> contactList;
 
-    public ContactAdapter(List<Contact> contactList) {
+    public ContactAdapter(List<Post> contactList) {
         this.contactList = contactList;
     }
 
-    public void setContactList(List<Contact> contactList) {
+    public void setContactList(List<Post> contactList) {
         this.contactList = contactList;
         this.notifyDataSetChanged();
     }
@@ -60,14 +61,21 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(ContactViewHolder holder, int position) {
-        Contact contact = contactList.get(position);
-        String name = contact.getName();
+        Post contact = contactList.get(position);
+        String name = contact.getTitle();
         holder.text.setText(name);
 
-        holder.container.setOnClickListener(v -> DetailsActivity.start(v.getContext(), contact));
+        // holder.container.setOnClickListener(v -> DetailsActivity.start(v.getContext(), contact));
 
-        TextDrawable drawable = UiUtil.getTextDrawable(name);
-        holder.imageView.setImageDrawable(drawable);
+        String url = "https://api.adorable.io/avatars/86/" + contact.getId() + ".png";
+        Glide
+                .with(context)
+                .load(url)
+                .centerCrop()
+                .crossFade()
+                .bitmapTransform( new jp.wasabeef.glide.transformations.RoundedCornersTransformation( context, 100, 0 ) )
+                .placeholder(R.drawable.ic_account_circle_grey_400_24dp)
+                .into(holder.imageView);
 
     }
 

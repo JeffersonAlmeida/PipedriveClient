@@ -1,11 +1,13 @@
 package br.com.doublef.pipedriveclient.feature.home.presenter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.doublef.pipedriveclient.base.BasePresenter;
 import br.com.doublef.pipedriveclient.datamanager.DataManager;
 import br.com.doublef.pipedriveclient.feature.home.contract.HomeContract;
-import br.com.doublef.pipedriveclient.model.PersonData;
+import br.com.doublef.pipedriveclient.model.Post;
 import br.com.doublef.pipedriveclient.remote.RetrofitException;
 import br.com.doublef.pipedriveclient.remote.RxUnsubscriber;
 import rx.Subscription;
@@ -28,7 +30,7 @@ public class HomePresenterImpl
     public void loadData() {
         doBeforeSubscribe();
         RxUnsubscriber.unsubscribe(subscription);
-        subscription = dataManager.fetchData()
+        subscription = dataManager.fetchUserPostsData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onFetchDataSuccess, this::onFetchDataError);
@@ -36,10 +38,10 @@ public class HomePresenterImpl
 
     @Override
     public void loadLocalData() {
-        dataManager.fetchLocalData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onFetchDataSuccess, this::onFetchDataError);
+//        dataManager.fetchLocalData()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::onFetchDataSuccess, this::onFetchDataError);
     }
 
     @Override
@@ -58,8 +60,8 @@ public class HomePresenterImpl
         getView().hideProgressBar();
     }
 
-    private void onFetchDataSuccess(PersonData data) {
-        if ( data != null && !data.getData().isEmpty() ) {
+    private void onFetchDataSuccess(List<Post> data) {
+        if ( data != null && !data.isEmpty() ) {
             getView().showList(data);
         }
         getView().hideProgressBar();

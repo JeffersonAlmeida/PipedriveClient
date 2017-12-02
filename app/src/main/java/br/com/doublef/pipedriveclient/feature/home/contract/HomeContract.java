@@ -1,13 +1,15 @@
 package br.com.doublef.pipedriveclient.feature.home.contract;
 
+import java.util.List;
+
 import br.com.doublef.pipedriveclient.base.MvpView;
-import br.com.doublef.pipedriveclient.model.PersonData;
+import br.com.doublef.pipedriveclient.model.Post;
 
 public interface HomeContract {
 
     interface HomeView extends MvpView {
 
-        void showList(PersonData contactList);
+        void showList(List<Post> contactList);
 
         void showError(String error);
 

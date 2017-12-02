@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.doublef.pipedriveclient.R;
@@ -20,7 +22,7 @@ import br.com.doublef.pipedriveclient.datamanager.DataManager;
 import br.com.doublef.pipedriveclient.feature.home.contract.HomeContract;
 import br.com.doublef.pipedriveclient.feature.home.presenter.HomePresenterImpl;
 import br.com.doublef.pipedriveclient.feature.login.view.LoginActivity;
-import br.com.doublef.pipedriveclient.model.PersonData;
+import br.com.doublef.pipedriveclient.model.Post;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -104,8 +106,8 @@ public class ContactsListActivity extends AppCompatActivity implements HomeContr
     }
 
     @Override
-    public void showList(PersonData personData) {
-        contactAdapter.setContactList(personData.getData());
+    public void showList(List<Post> personData) {
+        contactAdapter.setContactList(personData);
     }
 
     @Override

@@ -13,14 +13,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".feature.home.view.ContactsListActivity"
             android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".feature.login.view.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".feature.login.view.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:noHistory="true">
         </activity>
         <activity android:name=".feature.details.DetailsActivity" />
         <meta-data
