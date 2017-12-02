@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -43,6 +46,9 @@ public class ContactsListActivity extends AppCompatActivity implements HomeContr
     @BindView(R.id.homeProgressBar)
     ProgressBar progressBar;
 
+    @BindView(R.id.screen)
+    ImageView screen;
+
     public static void start(Context context) {
         Intent starter = new Intent(context, ContactsListActivity.class);
         starter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -60,6 +66,12 @@ public class ContactsListActivity extends AppCompatActivity implements HomeContr
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(contactAdapter);
+
+        Glide
+                .with(this)
+                .load("https://i.pinimg.com/564x/b8/0c/aa/b80caa37ff46a2003b648617b643d185.jpg")
+                .crossFade()
+                .into(screen);
 
         homePresenter.attachView(this);
         loadData(savedInstanceState);

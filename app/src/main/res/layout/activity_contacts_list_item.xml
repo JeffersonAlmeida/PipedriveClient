@@ -8,14 +8,14 @@
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:layout_marginTop="15dp"
-    tools:background="@android:color/darker_gray"
+    tools:background="@android:color/black"
     tools:context=".feature.home.view.ContactsListActivity">
 
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        tools:background="@android:color/holo_green_dark" />
+        tools:background="@drawable/ic_account_circle_white_24dp" />
 
     <TextView
         android:id="@+id/text"
@@ -23,7 +23,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
         android:gravity="center|left"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:textColor="@android:color/white"
         android:background="@drawable/shape"
         android:fontFamily="sans-serif"
