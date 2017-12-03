@@ -19,6 +19,7 @@ import br.com.doublef.pipedriveclient.database.DatabaseFacade;
 import br.com.doublef.pipedriveclient.model.Contact;
 import br.com.doublef.pipedriveclient.model.Email;
 import br.com.doublef.pipedriveclient.model.Phone;
+import br.com.doublef.pipedriveclient.model.Post;
 import br.com.doublef.pipedriveclient.util.Constants;
 import br.com.doublef.pipedriveclient.util.UiUtil;
 import butterknife.BindView;
@@ -50,9 +51,9 @@ public class DetailsActivity extends AppCompatActivity {
     @BindView(R.id.email_address)
     TextView emailAddress;
 
-    private Contact contact;
+    private Post contact;
 
-    public static void start(Context context, Contact contact) {
+    public static void start(Context context, Post contact) {
         Intent starter = new Intent(context, DetailsActivity.class);
         starter.putExtra(Constants.CONTACT_DATA, contact);
         context.startActivity(starter);
@@ -71,12 +72,12 @@ public class DetailsActivity extends AppCompatActivity {
 
         setToolbarTitle();
 
-        TextDrawable drawable = UiUtil.getTextDrawable(contact.getName());
+        TextDrawable drawable = UiUtil.getTextDrawable(contact.getTitle());
         imageProfile.setImageDrawable(drawable);
 
-        name.setText(contact.getName());
+        name.setText("Name");
 
-        company.setText(contact.getCompanyName());
+        company.setText("DoubleF");
 
         setEmailFields();
         setPhoneFields();
@@ -84,19 +85,26 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void setPhoneFields() {
-        if ( contact.getPhoneData() != null && !contact.getPhoneData().isEmpty() ){
-            Phone firstPhone = contact.getPhoneData().get(0);
-            phoneLabel.setText(firstPhone.getLabel());
-            phoneNumber.setText(firstPhone.getValue());
-        }
+//        if ( contact.getPhoneData() != null && !contact.getPhoneData().isEmpty() ){
+//            Phone firstPhone = contact.getPhoneData().get(0);
+//            phoneLabel.setText(firstPhone.getLabel());
+//            phoneNumber.setText(firstPhone.getValue());
+//        }
+
+        phoneLabel.setText("Phone");
+        phoneNumber.setText("118989898393");
     }
 
     private void setEmailFields() {
-        if ( contact.getEmailData() != null && !contact.getEmailData().isEmpty()){
-            Email firstEmail = contact.getEmailData().get(0);
-            emailLabel.setText(firstEmail.getLabel());
-            emailAddress.setText(firstEmail.getValue());
-        }
+//        if ( contact.getEmailData() != null && !contact.getEmailData().isEmpty()){
+//            Email firstEmail = contact.getEmailData().get(0);
+//            emailLabel.setText(firstEmail.getLabel());
+//            emailAddress.setText(firstEmail.getValue());
+//        }
+
+        emailLabel.setText("EMAIL");
+        emailAddress.setText("jefferson@comp.ufu.br");
+
     }
 
     @Override
@@ -115,8 +123,8 @@ public class DetailsActivity extends AppCompatActivity {
         if ( supportActionBar != null ) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
             supportActionBar.setHomeButtonEnabled(true);
-            supportActionBar.setTitle(contact.getFirstName());
-            supportActionBar.setSubtitle(contact.getCompanyName());
+            supportActionBar.setTitle(contact.getUserId()+"");
+            supportActionBar.setSubtitle(contact.getTitle());
         }
     }
 }

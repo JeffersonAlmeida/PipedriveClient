@@ -22,6 +22,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.doublef.pipedriveclient.R;
+import br.com.doublef.pipedriveclient.feature.details.DetailsActivity;
 import br.com.doublef.pipedriveclient.model.Post;
 import br.com.doublef.pipedriveclient.util.ColorUtil;
 import butterknife.BindView;
@@ -69,7 +70,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         String name = contact.getTitle();
         holder.text.setText(name);
 
-        // holder.container.setOnClickListener(v -> DetailsActivity.start(v.getContext(), contact));
+         holder.container.setOnClickListener(v -> DetailsActivity.start(v.getContext(), contact));
 
         String url = "https://api.adorable.io/avatars/86/" + contact.getId() + ".png";
         Glide
@@ -103,6 +104,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                 })
                 .placeholder(R.drawable.ic_account_circle_white_24dp)
                 .error(R.drawable.ic_account_circle_white_24dp)
+                .transform(new jp.wasabeef.glide.transformations.RoundedCornersTransformation( context, 100, 0 ))
                 .into(holder.imageView)
         ;
 
